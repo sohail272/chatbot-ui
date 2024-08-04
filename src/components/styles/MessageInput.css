@@ -1,0 +1,21 @@
+.message-input-form {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  background-color: #fff;
+}
+
+.message-input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  margin-right: 10px;
+  outline: none;
+}
+
+.send-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
