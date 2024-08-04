@@ -1,26 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ChatWidget from './components/ChatWidget';
+import { Helmet } from 'react-helmet';
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Helmet>
+        <title>Chat Application</title>
+        <meta name="description" content="A simple chat application using FastAPI and React." />
+      </Helmet>
+      <main>
+        <ChatWidget />
+      </main>
     </div>
   );
-}
+};
 
 export default App;
