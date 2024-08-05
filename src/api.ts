@@ -1,15 +1,19 @@
-// src/api/index.ts
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000'; // Adjust based on your setup
+const api = axios.create({
+  baseURL: 'http://127.0.0.1:8000',
+});
 
-export const fetchMessages = () => axios.get(`${API_URL}/messages/`);
+let token = '';
 
-export const sendMessage = (content: string) =>
-  axios.post(`${API_URL}/messages/`, { content });
+export const login = async (username: string, password: string) => {
+  const response = await api.post('/token', new URLSearchParams({ username, password }));
+  token = response.data.access_token;
+  api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+};
 
-export const deleteMessage = (id: number) =>
-  axios.delete(`${API_URL}/messages/${id}`);
-
-export const chatbotRespond = (content: string) =>
-  axios.post(`${API_URL}/chatbot/respond`, { content });
+export const fetchMessages = () => api.get('/messages/');
+export const sendMessage = (content: string) => api.post('/messages/', { content });
+export const deleteMessage = (id: number) => api.delete(`/messages/${id}`);
+export const updateMessage = (id: number, content: string) => api.put(`/messages/${id}`, { content });
+export const chatbotRespond = (message: string) => api.post('/chatbot/respond/', { content: message });
