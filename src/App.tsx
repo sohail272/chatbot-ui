@@ -30,7 +30,7 @@ const App: React.FC = () => {
         {isAuthenticated ? (
           <ChatWidget />
         ) : (
-          <p>Loading...</p>
+          <div className='loading-state'>Loading...</div>
         )}
       </main>
     </div>
