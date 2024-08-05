@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://chatwidget-api.netlify.app/',
+  baseURL: 'http://127.0.0.1:8000',
 });
 
 let token = '';
