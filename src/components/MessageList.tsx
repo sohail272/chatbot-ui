@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Message } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,16 @@ interface MessageListProps {
 }
 
 const MessageList: React.FC<MessageListProps> = ({ messages, onDelete, onEdit }) => {
+  const messageEndRef = useRef<HTMLDivElement>(null);
+  const scrollToBottom = () => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom(); // Scroll to the bottom whenever messages change
+  }, [messages]);
   return (
     <div className="message-list">
       {messages.map((message) => (
@@ -42,6 +52,7 @@ const MessageList: React.FC<MessageListProps> = ({ messages, onDelete, onEdit })
           </div>
         </div>
       ))}
+      <div ref={messageEndRef} />
     </div>
   );
 };
