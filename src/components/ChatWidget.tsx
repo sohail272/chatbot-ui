@@ -8,7 +8,6 @@ import './styles/ChatWidget.css';
 
 const ChatWidget: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [editId, setEditId] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState<string>('');
 
   useEffect(() => {
@@ -24,9 +23,6 @@ const ChatWidget: React.FC = () => {
         sender: msg.sender,
       }));
       setMessages((prevMessages) => [...prevMessages, ...newMessages]);
-
-      setInputValue('');
-      setEditId(null);
     } catch (error) {
       console.error('Failed to send message:', error);
     }
@@ -42,7 +38,6 @@ const ChatWidget: React.FC = () => {
   };
 
   const handleEditMessage = (id: number, content: string) => {
-    setEditId(id);
     setInputValue(content); // Set the input field to the message content
   };
 
