@@ -8,7 +8,6 @@ This is the frontend of the chatbot application built with React and TypeScript.
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Running the Application](#running-the-application)
-- [Environment Variables](#environment-variables)
 
 ## Features
 
@@ -41,11 +40,7 @@ Before you begin, ensure you have the following:
    ```bash
    npm start
    ```
+   Update the api baseUrl if required in `src/api.ts`
+   
    The application will be available at `http://localhost:3000`.
 
-## Environment Variables
-
-Ensure your frontend is configured to connect to the backend API. You may need to set up a `.env` file with the backend URL if it changes:
-   ```bash
-   REACT_APP_API_URL=http://localhost:8000
-   ```
