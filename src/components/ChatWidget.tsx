@@ -1,9 +1,8 @@
-// src/components/ChatWidget.tsx
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
-import { fetchMessages, sendMessage, deleteMessage, chatbotRespond } from '../api';
+import { fetchMessages, sendMessage, deleteMessage } from '../api';
 import { Message } from '../types';
 import './styles/ChatWidget.css';
 
@@ -18,28 +17,16 @@ const ChatWidget: React.FC = () => {
 
   const handleSendMessage = async (content: string) => {
     try {
-      if (editId !== null) {
-        // Send the edited message as a new message
-        const response = await sendMessage(content);
-        const userMessage = { ...response.data, sender: 'user' };
-        setMessages((prevMessages) => [...prevMessages, userMessage]);
+      // Send the message and receive both user and system messages
+      const response = await sendMessage(content);
+      const newMessages = response.data.map((msg: Message) => ({
+        ...msg,
+        sender: msg.sender,
+      }));
+      setMessages((prevMessages) => [...prevMessages, ...newMessages]);
 
-        const botResponse = await chatbotRespond(content);
-        const botMessage = { ...botResponse.data, sender: 'system' };
-        setMessages((prevMessages) => [...prevMessages, botMessage]);
-
-        setEditId(null); // Reset edit state
-      } else {
-        // Send a new message
-        const response = await sendMessage(content);
-        const userMessage = { ...response.data, sender: 'user' };
-        setMessages((prevMessages) => [...prevMessages, userMessage]);
-
-        const botResponse = await chatbotRespond(content);
-        const botMessage = { ...botResponse.data, sender: 'system' };
-        setMessages((prevMessages) => [...prevMessages, botMessage]);
-      }
-      setInputValue(''); // Clear the input field
+      setInputValue('');
+      setEditId(null);
     } catch (error) {
       console.error('Failed to send message:', error);
     }

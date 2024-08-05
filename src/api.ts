@@ -16,4 +16,3 @@ export const fetchMessages = () => api.get('/messages/');
 export const sendMessage = (content: string) => api.post('/messages/', { content });
 export const deleteMessage = (id: number) => api.delete(`/messages/${id}`);
 export const updateMessage = (id: number, content: string) => api.put(`/messages/${id}`, { content });
-export const chatbotRespond = (message: string) => api.post('/chatbot/respond/', { content: message });
